@@ -1,2 +1,2 @@
 # LearnSharePDFs
-LearnSharePDFs is an open-source project aimed at providing free educational PDFs to students worldwide. Download PDFs for free or contribute by uploading your own educational materials. Join us in making learning accessible to all!
+LearnShareMedia: Free access to educational PDFs, videos, and docs. Users can download resources without logging in, and contributors can upload content to help others. Developed by "FreakyCoders," it's an open-source project promoting community-driven learning and sharing.
