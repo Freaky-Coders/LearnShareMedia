@@ -4,27 +4,33 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-color-light: #F3F4F6;
+  --background-color-dark: #1E1E1E;
+  --primary-color: #1E3A8A;
+  --secondary-color: #06B6D4;
+  --accent-color: #F97316;
+  --text-color: #374151;
+  --success-color: #10B981;
+  --warning-color: #FBBF24;
+  --error-color: #EF4444;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --background-color-light: #1E1E1E;
+    --background-color-dark: #1E1E1E;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    180deg,
+    rgba(var(--background-color-light), 1) 0%,
+    rgba(var(--background-color-light), 1) 100%
+  );
 }
+
 
 @layer utilities {
   .text-balance {
