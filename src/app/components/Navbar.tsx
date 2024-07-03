@@ -4,7 +4,7 @@ import { IoMenu } from "react-icons/io5";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 import Link from 'next/link';
 import Image from 'next/image';
-import SearchInput from './common/SearchInput';
+import SearchInput from './CommonComponents/SearchInput';
 import { RiMenu2Fill } from 'react-icons/ri';
 
 type MenuItem = {
@@ -17,6 +17,7 @@ const Navbar = () => {
     const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
     const [desktopDropdownOpen, setDesktopDropdownOpen] = useState<boolean>(false);
     const [mobileDropdownOpen, setMobileDropdownOpen] = useState<boolean>(false);
+    const [windowscrolled, setWindowscrolled] = useState<boolean>(false)
 
     const desktopDropdownRef = useRef<HTMLUListElement>(null);
     const desktopButtonRef = useRef<HTMLButtonElement>(null);
@@ -69,9 +70,29 @@ const Navbar = () => {
         },
     ];
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                setWindowscrolled(true);
+                console.log("Scrolled more than 100 pixels");
+                console.log(windowscrolled)
+            } else {
+                setWindowscrolled(false);
+                console.log("Scrolled less than 100 pixels");
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
+
     return (
         <>
-            <nav className='fixed w-full px-8 py-3 top-0 lg:bg-inherit bg-secondary-700'>
+            <nav className={`fixed w-full px-8 py-3 top-0 lg:bg-inherit bg-secondary-700 z-20 ${windowscrolled ? "bg-secondary-700" : ""}`}>
                 <div className='container mx-auto  flex justify-between items-center relative gap-5'>
                     <div className="flex items-center gap-4">
                         <RiMenu2Fill className='sm:text-4xl text-[43px] lg:text-primary-700 text-white cursor-pointer xl:hidden' onClick={() => setSidebarOpen(true)} />
@@ -86,7 +107,7 @@ const Navbar = () => {
                     <div className="hidden xl:block">
                         <ul className='flex gap-4 text-white justify-end'>
                             {menus.map((menu, index) => (
-                                <li key={index} className='text-lg cursor-pointer relative'>
+                                <li key={index} className='text-lg cursor-pointer relative font-semibold'>
                                     {menu.link ? (
                                         <Link href={menu.link}>{menu.label}</Link>
                                     ) : (
@@ -113,7 +134,7 @@ const Navbar = () => {
             </nav>
 
             {/* Sidebar Menu */}
-            <div className={`bg-[#0000004b] xl:hidden ${sidebarOpen ? 'absolute top-0 left-0 w-full h-full' : ''}`}>
+            <div className={`bg-[#0000004b] z-30 xl:hidden ${sidebarOpen ? 'absolute top-0 left-0 w-full h-full' : ''}`}>
                 <div className={`fixed xl:hidden top-0 w-full h-full transition-all duration-300 ${sidebarOpen ? 'left-0 opacity-100' : 'opacity-0 left-[-100%]'}`}>
                     <div className={`w-[250px] h-full p-8 bg-white transition-transform duration-300 transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}`}>
                         <IoMdClose className='sm:text-4xl text-[43px] cursor-pointer mb-5' onClick={() => setSidebarOpen(false)} />
