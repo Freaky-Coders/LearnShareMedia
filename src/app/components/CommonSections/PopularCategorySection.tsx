@@ -9,42 +9,50 @@ const PopularCategorySection: React.FC = () => {
     {
       title: "Programming",
       subHeading: "50+ PDFs",
-      icon: <FaCode />
+      icon: <FaCode />,
+      link: "/"
     },
     {
       title: "Mathematics",
       subHeading: "30+ PDFs",
-      icon: <FaCalculator />
+      icon: <FaCalculator />,
+      link: "/"
     },
     {
       title: "Web Development",
       subHeading: "40+ PDFs",
-      icon: <FaLaptopCode />
+      icon: <FaLaptopCode />,
+      link: "/"
     },
     {
       title: "Design",
       subHeading: "25+ PDFs",
-      icon: <FaPaintBrush />
+      icon: <FaPaintBrush />,
+      link: "/"
     },
     {
       title: "Science",
       subHeading: "35+ PDFs",
-      icon: <FaBook />
+      icon: <FaBook />,
+      link: "/"
     },
     {
       title: "Geography",
       subHeading: "20+ PDFs",
-      icon: <FaGlobe />
+      icon: <FaGlobe />,
+      link: "/"
     },
     {
       title: "Science",
       subHeading: "35+ PDFs",
-      icon: <FaBook />
+      icon: <FaBook />,
+      link: "/"
     },
     {
       title: "Geography",
       subHeading: "20+ PDFs",
-      icon: <FaGlobe />
+      icon: <FaGlobe />,
+      link: "/"
     }
   ];
 
@@ -59,6 +67,7 @@ const PopularCategorySection: React.FC = () => {
               title={category.title}
               subHeading={category.subHeading}
               icon={category.icon}
+              link={category.link}
             />
           ))}
         </div>
