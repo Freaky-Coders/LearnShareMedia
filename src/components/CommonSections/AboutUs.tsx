@@ -7,7 +7,7 @@ import SideImage from "../CommonComponents/SideImage";
 const AboutUs = () => {
   return (
     <>
-      <section className='bg-gray-100 lg:py-16 py-10'>
+      <section className='bg-primary-100 lg:py-16 py-10'>
         <div className="container mx-auto px-6">
             <div className="grid lg:grid-cols-2 grid-cols-1 items-center">
                 <SideContent 

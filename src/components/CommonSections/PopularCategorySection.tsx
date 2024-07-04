@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCode, FaBook, FaLaptopCode, FaPaintBrush, FaCalculator, FaGlobe } from 'react-icons/fa';
 import CategoryCard from '../CommonComponents/CategoryCard';
-import SectionHeading from '../CommonComponents/SectionTitle';
+import SectionTitle from '../CommonComponents/SectionTitle';
 
 const PopularCategorySection: React.FC = () => {
 
@@ -58,7 +58,7 @@ const PopularCategorySection: React.FC = () => {
 
   return (
     <section className="py-16 bg-white">
-      <SectionHeading title='Popular Topic, Which are Most Favourite To Students' preTitle='Popular Category' />
+      <SectionTitle title='Popular Topic, Which are Most Favourite To Students' preTitle='Popular Category' />
       <div className="container mx-auto mt-7 px-6">
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">
           {categories.map((category, index) => (

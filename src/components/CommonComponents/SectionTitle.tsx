@@ -7,9 +7,9 @@ interface SectionTitleProps {
   children?: React.ReactNode;
 }
 
-const SectionHeading = (props: Readonly<SectionTitleProps>) => {
+const SectionTitle = (props: Readonly<SectionTitleProps>) => {
   return (
-    <div className='container px-6 mx-auto'>
+    <div className='container mx-auto'>
       <div
         className={`flex w-full flex-col mt-4 ${props.align === "left" ? "" : "items-center justify-center text-center"
           }`}>
@@ -35,4 +35,4 @@ const SectionHeading = (props: Readonly<SectionTitleProps>) => {
   )
 }
 
-export default SectionHeading
+export default SectionTitle
