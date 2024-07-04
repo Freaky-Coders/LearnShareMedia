@@ -9,7 +9,7 @@ interface SectionTitleProps {
 
 const SectionHeading = (props: Readonly<SectionTitleProps>) => {
   return (
-    <div>
+    <div className='container px-6 mx-auto'>
       <div
         className={`flex w-full flex-col mt-4 ${props.align === "left" ? "" : "items-center justify-center text-center"
           }`}>

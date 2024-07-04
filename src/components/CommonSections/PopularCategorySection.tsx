@@ -57,7 +57,7 @@ const PopularCategorySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
+    <section className="py-16 bg-white">
       <SectionHeading title='Popular Topic, Which are Most Favourite To Students' preTitle='Popular Category' />
       <div className="container mx-auto mt-7 px-6">
         <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">

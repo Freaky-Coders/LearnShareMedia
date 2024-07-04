@@ -3,38 +3,69 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-color-light: #F3F4F6;
-  --background-color-dark: #1E1E1E;
-  --primary-color: #1E3A8A;
-  --secondary-color: #06B6D4;
-  --accent-color: #F97316;
-  --text-color: #374151;
-  --success-color: #10B981;
-  --warning-color: #FBBF24;
-  --error-color: #EF4444;
+  --background: #F3F4F6; /* Light Background Color */
+  --foreground: #374151; /* Text Color */
+
+  --card: #FFFFFF; /* Card Background Color */
+  --card-foreground: #374151; /* Card Text Color */
+
+  --popover: #FFFFFF; /* Popover Background Color */
+  --popover-foreground: #374151; /* Popover Text Color */
+
+  --primary: #1E3A8A; /* Primary Color */
+  --primary-foreground: #FFFFFF; /* Primary Text Color */
+
+  --secondary: #06B6D4; /* Secondary Color */
+  --secondary-foreground: #FFFFFF; /* Secondary Text Color */
+
+  --muted: #CFFAFE; /* Muted Color */
+  --muted-foreground: #374151; /* Muted Text Color */
+
+  --accent: #F97316; /* Accent Color */
+  --accent-foreground: #FFFFFF; /* Accent Text Color */
+
+  --destructive: #EF4444; /* Error Color */
+  --destructive-foreground: #FFFFFF; /* Error Text Color */
+
+  --border: #E5E7EB; /* Border Color */
+  --input: #F3F4F6; /* Input Background Color */
+  --ring: #1E3A8A; /* Ring Color */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-color-light: #1E1E1E;
-    --background-color-dark: #1E1E1E;
+    --background: #1E1E1E; /* Dark Background Color */
+    --foreground: #FFFFFF; /* Dark Text Color */
+
+    --card: #2D2D2D; /* Dark Card Background Color */
+    --card-foreground: #FFFFFF; /* Dark Card Text Color */
+
+    --popover: #2D2D2D; /* Dark Popover Background Color */
+    --popover-foreground: #FFFFFF; /* Dark Popover Text Color */
+
+    --primary: #1E3A8A; /* Dark Primary Color */
+    --primary-foreground: #FFFFFF; /* Dark Primary Text Color */
+
+    --secondary: #06B6D4; /* Dark Secondary Color */
+    --secondary-foreground: #FFFFFF; /* Dark Secondary Text Color */
+
+    --muted: #2D2D2D; /* Dark Muted Color */
+    --muted-foreground: #FFFFFF; /* Dark Muted Text Color */
+
+    --accent: #F97316; /* Dark Accent Color */
+    --accent-foreground: #FFFFFF; /* Dark Accent Text Color */
+
+    --destructive: #EF4444; /* Dark Error Color */
+    --destructive-foreground: #FFFFFF; /* Dark Error Text Color */
+
+    --border: #3F3F3F; /* Dark Border Color */
+    --input: #2D2D2D; /* Dark Input Background Color */
+    --ring: #F97316; /* Dark Ring Color */
   }
 }
 
-body {
-  background: linear-gradient(
-    180deg,
-    rgba(var(--background-color-light), 1) 10%,
-    rgba(var(--background-color-light), 1) 100%
-  );
-}
-
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@layer base {
+  body {
+    @apply bg-white;
   }
 }
-

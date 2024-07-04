@@ -1,14 +1,13 @@
 import Image from "next/image";
-import Navbar from "./components/Navbar";
-import { Button } from "@nextui-org/react";
-import Footer from "./components/Footer";
-import HomeHero from "./components/Home/HomeHero";
-import PopularCategorySection from "./components/CommonSections/PopularCategorySection";
+import PopularCategorySection from "@/components/CommonSections/PopularCategorySection";
+import AboutUs from "@/components/CommonSections/AboutUs";
+import HomeHero from "@/components/Home/Sections/HomeHero";
 
 export default function Home() {
   return (
     <>
       <HomeHero/>
+      <AboutUs/>
       <PopularCategorySection/>
     </>
   );
