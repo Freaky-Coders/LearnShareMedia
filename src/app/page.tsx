@@ -8,10 +8,23 @@ import OurMessageForYou from "@/components/CommonSections/OurMessageForYou";
 export default function Home() {
   return (
     <>
+      {/* Home Page Hero Section */}
       <HomeHero/>
+
+
+      {/* Home About Us Section */}
       <AboutUs/>
+
+
+      {/* Popular Category Home Section */}
       <PopularCategorySection/>
+
+
+      {/* Who We are */}
       <WhoWeAre/>
+
+
+      {/* Our Message For You */}
       <OurMessageForYou/>
     </>
   );

@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Footer: React.FC = () => {
     return (
         <footer className="bg-secondary-700 shadow">
-            <div className="w-full container mx-auto p-4 md:py-8">
+            <div className="w-full container mx-auto py-4 md:py-8">
                 <div className="sm:flex sm:items-center sm:justify-between">
                     <Link href="/" className="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
                         <Image src="/assets/Images/LearnShareMediaLogo.png" alt="LearnShareMedia Logo" width={300} height={32} />

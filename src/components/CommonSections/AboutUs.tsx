@@ -16,6 +16,7 @@ const AboutUs = () => {
                   buttonlabel='Learn More' 
                   buttonlink="/about"
                   css="w-[100%]"
+                  subHeading="About Us"
                 />
                 <SideImage 
                   image={'/assets/Images/HomePage/AboutUsImage.png'}
