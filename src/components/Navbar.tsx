@@ -92,7 +92,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`fixed w-full py-3 top-0 lg:bg-transparent bg-secondary-700 z-20 ${windowscrolled ? "bg-secondary-700" : ""}`}>
+            <nav className={`fixed w-full py-3 top-0 bg-secondary-700 z-20 ${windowscrolled ? "bg-secondary-700" : "lg:bg-transparent"}`}>
                 <div className='container mx-auto flex justify-between items-center relative gap-5'>
                     <div className="flex items-center gap-4">
                         <RiMenu2Fill className='sm:text-4xl text-[43px] lg:text-primary-700 text-white cursor-pointer xl:hidden' onClick={() => setSidebarOpen(true)} />
