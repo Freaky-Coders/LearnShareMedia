@@ -1,6 +1,6 @@
 import Image from "next/image"
 import React from "react"
-import LinkButton from '../../CommonComponents/LinkButton';
+import LinkButton from '../../../CommonComponents/LinkButton';
 
 const HomeHero = () => {
   return (
