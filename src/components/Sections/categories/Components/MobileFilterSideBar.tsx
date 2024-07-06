@@ -35,7 +35,7 @@ type Filter = {
   options: Option[];
 }
 
-const FilterSideBar = () => {
+const MobileFilterSideBar = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
@@ -59,7 +59,7 @@ const FilterSideBar = () => {
     }
 
   return (
-    <div className='h-[90vh] overflow-scroll sticky top-[90px]'>
+    <div className='h-[100vh] overflow-scroll sticky top-[0px] w-[350px] bg-white p-6'>
       <div className='flex justify-between items-center border-b border-gray-300 pb-5 px-2 '>
         <h2 className='text-2xl font-bold'>Filters</h2>
         <button type='button' className='rotate-90' onClick={handleSidebarToggle}>
@@ -133,4 +133,4 @@ const FilterSideBar = () => {
   );
 };
 
-export default FilterSideBar;
+export default MobileFilterSideBar;
