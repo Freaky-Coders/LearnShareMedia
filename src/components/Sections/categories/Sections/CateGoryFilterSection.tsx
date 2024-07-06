@@ -10,11 +10,11 @@ const CateGoryFilterSection: React.FC = () => {
 
     return (
         <>
-            <section className='pt-[150px] flex relative'>
+            <section className='pt-[150px] flex relative bg-secondary-700'>
                 <FilterSideBar />
                 <div className="p-4">
                             <CategorySearchInput/>
-                    <div className="">
+                    <div className=" mt-6">
                         <div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

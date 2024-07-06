@@ -47,8 +47,8 @@ const FilterSideBar = () => {
     : CategoriesData;
 
   return (
-    <div className='border-r border-secondary-500 py-4 px-3 border-opacity-35 h-[90vh] sticky top-[130px] w-[25%] overflow-y-auto'>
-      <div className='flex justify-between items-center border-b border-secondary-500 border-opacity-35 pb-5 px-2'>
+    <div className='border-r border-gray-300 py-4 px-3 h-[90vh] sticky top-[130px] w-[25%] overflow-y-auto'>
+      <div className='flex justify-between items-center border-b border-gray-300 pb-5 px-2'>
         <h2 className='text-2xl font-bold'>Filters</h2>
         <button type='button' className='rotate-90'>
           <LuArrowDownFromLine className='text-2xl' />
