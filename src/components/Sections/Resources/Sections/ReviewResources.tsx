@@ -89,7 +89,7 @@ const ReviewResources: React.FC<ReviewResourcesProps> = ({ reviewFormRef }) => {
                         <div>
                             <label className="block text-sm font-medium text-gray-700">Comment</label>
                             <textarea
-                                name="comment"
+                                name="comment"  
                                 value={newReview.comment}
                                 onChange={handleInputChange}
                                 className="mt-1 block w-full border-gray-300 rounded-md shadow-sm border p-3"

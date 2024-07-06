@@ -15,8 +15,9 @@ const HomeHero = () => {
               <p className='md:text-xl text-lg pt-2'>
                 Dive into a world of knowledge with our extensive collection of free study materials. From comprehensive guides to insightful articles, we've got everything you need to excel in your educational endeavors.
               </p>
-              <div className='mt-6'>
+              <div className='mt-6 flex gap-5'>
                 <LinkButton label={"Explore All Categories"} link={"/categories"}/>
+                <LinkButton label={"Share Material"} link={"/share-resources"}/>
               </div>
             </div>
             <div className='z-10 flex justify-center'>
