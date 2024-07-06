@@ -48,7 +48,7 @@ const TagsInput: React.FC<TagsInputProps> = ({ value, onChange }) => {
       {/* Display the tags */}
       <div className="flex flex-wrap gap-2 mb-2">
         {value.map((tag, index) => (
-          <div key={index} className="flex items-center bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1">
+          <div key={index} className="flex items-center bg-gray-200 border-gray-90 rounded-full px-3 py-1">
             <span>{tag}</span>
             <button
               type="button"

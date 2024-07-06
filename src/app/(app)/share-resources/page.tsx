@@ -30,6 +30,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import CategoriesData from './Category.json';
+import { FaFileUpload } from 'react-icons/fa'
 
 const ShareRecipe = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -44,7 +45,8 @@ const ShareRecipe = () => {
       description: '',
       tags: [],
       category: '',
-      subCategory: ''
+      subCategory: '',
+      file: ''
     }
   })
 
@@ -54,11 +56,24 @@ const ShareRecipe = () => {
     console.log(data)
   }
 
+
+  const [fileName, setFileName] = useState<string | null>(null);
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      setFileName(file.name);
+    }
+    onChange(event); // Call the original onChange method
+  };
+
+
+
   // Filter subcategories based on the selected category
   const subCategories = category ? CategoriesData.find(cat => cat.id === category)?.options : []
 
   return (
-    <div className="flex justify-center items-center min-h-screen px-5 py-10 pt-20 bg-gray-100 dark:bg-gray-900">
+    <div className="flex justify-center items-center min-h-screen px-5 py-10 pt-[150px] bg-primary-100 dark:bg-gray-900">
       <div className="w-full md:w-2/3 lg:w-1/2 p-8 space-y-8 bg-white dark:bg-gray-800 rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
@@ -95,13 +110,48 @@ const ShareRecipe = () => {
               )}
             />
             <FormField
+              control={control}
+              name="file"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Add File (Only pdfs You can share)</FormLabel>
+                  <FormControl>
+                    <div>
+                      <div className="relative">
+                        <Input
+                          type="file"
+                          className="hidden"  
+                          id="file-upload"
+                          {...field}
+                          onChange={(event) => handleFileChange(event, field.onChange)}
+                        />
+                        <label
+                          htmlFor="file-upload"
+                          className="flex items-center justify-center w-full h-12 px-4 py-2 border border-gray-900 rounded-md cursor-pointer hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                        >
+                          <FaFileUpload className="text-xl mr-2" />
+                          <span className="text-sm font-medium text-gray-700">
+                            {fileName || 'Choose file'}
+                          </span>
+                        </label>
+                      </div>
+                      {fileName && (
+                        <p className="mt-2 text-sm text-gray-500">Selected file: {fileName}</p>
+                      )}
+                    </div>
+                  </FormControl>
+                  <FormMessage className='text-red-500' />
+                </FormItem>
+              )}
+            />
+            <FormField
               control={form.control}
               name="category"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Category</FormLabel>
                   <FormControl>
-                    <Select onValueChange={(value) => {field.onChange(value); setCategory(value);}} value={field.value}>
+                    <Select onValueChange={(value) => { field.onChange(value); setCategory(value); }} value={field.value}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Choose a Category" />
                       </SelectTrigger>
