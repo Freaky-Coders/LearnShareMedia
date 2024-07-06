@@ -1,4 +1,4 @@
-import CateGoryFilterSection from '@/components/Sections/categories/Sections/CateGoryFilterSection'
+import CateGoryFilterSection from '@/components/Sections/Categories/Sections/CateGoryFilterSection'
 import React from 'react'
 
 const Categories = () => {

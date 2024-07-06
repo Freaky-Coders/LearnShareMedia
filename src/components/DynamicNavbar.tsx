@@ -1,16 +1,14 @@
-'use client'
+'use client';
 import Navbar from "./Navbar";
 import CategoryNavbar from "./CategoryNavbar";
 import { usePathname } from "next/navigation";
 
-
 export const DynamicNavbar = () => {
     const pathname = usePathname();
 
-    if(pathname.startsWith("/categories")){
-        return <CategoryNavbar/>
+    if (pathname.startsWith("/categories") || pathname.startsWith("/resources")) {
+        return <CategoryNavbar />;
     }
 
-    return <Navbar/>
-
-}
+    return <Navbar />;
+};
