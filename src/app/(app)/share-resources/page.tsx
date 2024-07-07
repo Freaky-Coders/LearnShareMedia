@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import {
@@ -31,6 +31,7 @@ import {
 } from "@/components/ui/select";
 import CategoriesData from './Category.json';
 import { FaFileUpload } from 'react-icons/fa'
+import axios from 'axios';
 
 const ShareRecipe = () => {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -46,30 +47,60 @@ const ShareRecipe = () => {
       tags: [],
       category: '',
       subCategory: '',
-      file: ''
+      file: null  // Set to null to handle the initial state
     }
   })
 
-  const { handleSubmit, control, reset } = form
-
-  const onSubmit = async (data: z.infer<typeof ShareResources>) => {
-    console.log(data)
-  }
-
+  const { handleSubmit, control, reset, setValue } = form
 
   const [fileName, setFileName] = useState<string | null>(null);
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>, onChange: (...event: any[]) => void) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setFileName(file.name);
-    }
-    onChange(event); // Call the original onChange method
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null;  // Get the selected file or null
+    setFileName(file?.name || '');  // Update the fileName state
+    setValue('file', file);  // Update the form value
   };
 
+  const onSubmit = async (data: z.infer<typeof ShareResources>) => {
+    setIsSubmitting(true);
+    console.log(data);
 
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('tags', JSON.stringify(data.tags));
+    formData.append('category', data.category);
+    formData.append('subCategory', data.subCategory);
 
-  // Filter subcategories based on the selected category
+    if (data.file) {  // Ensure the file is present
+      formData.append('file', data.file);  // Append the File object
+    }
+
+    try {
+      const response = await axios.post("/api/resources-share", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      toast({
+        title: "Success!",
+        description: "Your resource has been shared.",
+        duration: 5000,
+      });
+      reset();
+      setFileName(null);
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an error sharing your resource.",
+        duration: 5000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   const subCategories = category ? CategoriesData.find(cat => cat.id === category)?.options : []
 
   return (
@@ -120,10 +151,9 @@ const ShareRecipe = () => {
                       <div className="relative">
                         <Input
                           type="file"
-                          className="hidden"  
+                          className="hidden"
                           id="file-upload"
-                          {...field}
-                          onChange={(event) => handleFileChange(event, field.onChange)}
+                          onChange={handleFileChange}  // Handle file changes
                         />
                         <label
                           htmlFor="file-upload"

@@ -6,5 +6,5 @@ export const ShareResources = z.object({
     tags: z.array(z.string()),
     category: z.string(),
     subCategory: z.string(),
-    file: z.string()
+    file: z.instanceof(File).nullable()
 })
