@@ -18,7 +18,7 @@ import { useToast } from '@/components/ui/use-toast'
 import { Loader2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { ShareResources } from '@/schema/ShareResources'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import TagsInput from '@/components/CommonComponents/TagsInput'
 import {
   Select,
@@ -54,7 +54,6 @@ const ShareRecipe = () => {
   const { handleSubmit, control, reset, setValue } = form
 
   const [fileName, setFileName] = useState<string | null>(null);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null;  // Get the selected file or null
     setFileName(file?.name || '');  // Update the fileName state
@@ -82,20 +81,30 @@ const ShareRecipe = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
+      console.log(response)
 
       toast({
         title: "Success!",
-        description: "Your resource has been shared.",
-        duration: 5000,
+        description: response.data.message,
       });
+
       reset();
       setFileName(null);
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "There was an error sharing your resource.",
-        duration: 5000,
-      });
+    } catch (error: any) {
+      if (error.response) {
+        toast({
+          title: "Error",
+          description: error.response.data.message,
+          duration: 5000,
+        });
+      }else{
+        toast({
+          title: "Error",
+          description: "There was an error sharing your resource.",
+          duration: 5000,
+        })
+      }
+      
     } finally {
       setIsSubmitting(false);
     }

@@ -1,44 +1,38 @@
-// src/app/api/resources-share/route.ts
 import { NextResponse } from 'next/server';
-import { v2 as cloudinary } from 'cloudinary';
 import dbConnect from "@/lib/dbConnect";
 import ResourcesModel from "@/model/resources.model";
-
-// Cloudinary configuration
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-});
+import { UploadImage } from '@/lib/uploadpdfs';
+import { CreateSuccessResponse, CreateErrorResponse } from '@/utils/ApiResponse';
 
 export async function POST(request: Request) {
   try {
     await dbConnect();
 
     const formData = await request.formData();
-    console.log(formData);
     const title = formData.get('title') as string;
     const description = formData.get('description') as string;
     const tags = JSON.parse(formData.get('tags') as string);
     const category = formData.get('category') as string;
     const subCategory = formData.get('subCategory') as string;
-    const file = formData.get('file') as File;
-    console.log("FILE CONSOLE:- ", file)
+    const myfile = formData.get('file') as File;
+    console.log("check my file", myfile);
 
+    const file = myfile;
     if (!file) {
-      return NextResponse.json({ message: 'Missing required parameter - file' }, { status: 400 });
+      return NextResponse.json(CreateErrorResponse("Missing required parameter - file", 400), { status: 400 });
     }
 
-    const uploadResponse = await cloudinary.uploader.upload(file, {
-      folder: 'learnsharemedia'
-    });
+    // Check file size limit (example: 10 MB)
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json(CreateErrorResponse("File size exceeds limit", 400), { status: 400 });
+    }
 
-    console.log("Secure url:- ", uploadResponse.secure_url)
+    const data: any = await UploadImage(file, "LearnShareMediaPdfs");
 
     const newResource = new ResourcesModel({
       title,
       description,
-      file: uploadResponse.secure_url,
+      file: data?.secure_url,
       category,
       subcategory: subCategory,
       tags
@@ -46,9 +40,9 @@ export async function POST(request: Request) {
 
     await newResource.save();
 
-    return NextResponse.json({ message: 'Resource shared successfully', data: newResource }, { status: 201 });
+    return NextResponse.json(CreateSuccessResponse('Your resource has been shared. 🙏 Thank you for your selfless act of sharing useful material!', 201, newResource), { status: 201 });
   } catch (error) {
     console.error('Error sharing resource:', error);
-    return NextResponse.json({ message: 'Error sharing resource', error }, { status: 500 });
+    return NextResponse.json(CreateErrorResponse('Error sharing resource', 500), { status: 500 });
   }
 }

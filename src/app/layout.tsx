@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { DynamicNavbar } from "@/components/DynamicNavbar";
 import StoreProvider from "./StoreProvider";
+import { Toaster } from '@/components/ui/toaster'
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <DynamicNavbar/>
           {children}
           <Footer/>
+          <Toaster/>
         </StoreProvider>
       </body>
     </html>
