@@ -1,52 +1,56 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-interface categorieslist {
-    categoriesList: string[];
-    loading: boolean;
-    error: string | null
+interface Category {
+  category: string;
+  subCategory: string[];
 }
 
-const initialState: categorieslist = {
-    categoriesList: [],
-    loading: false,
-    error: null
+interface CategoriesListResponse {
+  success: boolean;
+  message: string;
+  statusCode: number;
+  data: Category[];
 }
 
+interface CategoriesListState {
+  categoriesList: CategoriesListResponse | null;
+  error: string | null;
+  loading: boolean;
+}
+
+const initialState: CategoriesListState = {
+  categoriesList: null,
+  error: null,
+  loading: false,
+};
 
 export const fetchCategories = createAsyncThunk(
-    'categories/fetchCategories',
-    async () => {
-        try {
-            const response = await axios.get<string[]>('/api/get-categories');
-            return response.data;
-        } catch (error) {
-            throw new Error("Failed to fetch categories");
-        }
-    }
-)
+  'categories/fetchCategories',
+  async () => {
+    const response = await axios.get('/api/get-categories');
+    return response.data as CategoriesListResponse;
+  }
+);
 
-const categorieslistSlice = createSlice({
-    name: "categorieslist",
-    initialState,
-    reducers: {},
-    extraReducers: builder => {
-        builder
-        .addCase(fetchCategories.pending, (state) => {
-            state.loading = true;
-            state.error = null
-        })
-        .addCase(fetchCategories.fulfilled, (state, action) => {
-            state.loading = false;
-            state.categoriesList = action.payload;
-        })
-        .addCase(fetchCategories.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message || "Failed to fetch categories";
-        })
-    }
-})
+const categoriesSlice = createSlice({
+  name: 'categories',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategories.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.loading = false;
+        state.categoriesList = action.payload;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || 'Failed to fetch categories';
+      });
+  },
+});
 
-
-
-export default categorieslistSlice.reducer;
+export default categoriesSlice.reducer;

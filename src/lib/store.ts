@@ -1,13 +1,15 @@
 import {configureStore} from '@reduxjs/toolkit';
 import filtersidebarReducer from './Features/FilterSidebar/filtersidebarSlice';
 import categoriesReducer from './Features/CategoriesFetch/categoriesfetchSlice';
+import ResourcesReducer from './Features/ResourcesFetch/ResourcesFetchSlice';
 
 
 export const makeStore = () => {
     return configureStore({
         reducer: {
             filterSidebarShow: filtersidebarReducer,
-            categoriesList: categoriesReducer
+            categoriesList: categoriesReducer,
+            resourcesData: ResourcesReducer
         }
     })
 }

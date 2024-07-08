@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { LuArrowDownFromLine } from "react-icons/lu";
 import CategoriesData from './Category.json';
-import { CaretSortIcon, CheckIcon } from "@radix-ui/react-icons"
+import { CaretSortIcon, CheckIcon, CircleBackslashIcon, ReloadIcon } from "@radix-ui/react-icons"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -22,6 +22,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import {toggleFilterSidebar} from '@/lib/Features/FilterSidebar/filtersidebarSlice'
+import Image from 'next/image';
 
 type Option = {
   value: string;
@@ -36,13 +37,17 @@ type Filter = {
 }
 
 const FilterSideBar = () => {
+
+  const { categoriesList, error, loading } = useSelector((state: RootState) => state.categoriesList);
+  const { ResourcesData } = useSelector((state: RootState) => state.resourcesData);
+  console.log(ResourcesData)
+
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("");
 
   const dispatch = useDispatch();
   const isSidebarvisible = useSelector((state: RootState) => state.filterSidebarShow.filtersidebarshow);
-  console.log(isSidebarvisible)
 
   const handleCategoryChange = (categoryId: string) => {
     setSelectedCategory(categoryId);
@@ -57,6 +62,35 @@ const FilterSideBar = () => {
     const handleSidebarToggle = () => {
       dispatch(toggleFilterSidebar());
     }
+
+  // Extracting categoriesList.data as CategoriesListExtract
+  const CategoriesListExtract = categoriesList?.data || [];
+  console.log(CategoriesListExtract);
+
+
+  if (loading) {
+    return (
+      <div className='flex flex-col justify-center items-center w-screen h-[90vh]'>
+        <Image src={"/assets/Images/LoadingGIF.gif"} width={200} height={50} alt='LearnShareMedia' />
+        <h4>Loading...</h4>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className='flex flex-col justify-center items-center h-[90vh]'>
+        <button
+          className='bg-primary-500 px-3 py-3 text-white font-bold flex items-center gap-3'
+          onClick={() => window.location.reload()}
+          type='button'
+        >
+          Reload Page <ReloadIcon />
+        </button>
+        <h4>Error: {error}</h4>
+      </div>
+    );
+  }
 
   return (
     <div className='h-[90vh] overflow-scroll sticky top-[90px]'>
@@ -92,7 +126,7 @@ const FilterSideBar = () => {
                     <CommandItem
                       key={category.id}
                       value={category.id}
-                      onSelect={() => handleCategoryChange(category.id)} // Call handleCategoryChange with category id
+                      onSelect={() => handleCategoryChange(category.id)}
                     >
                       {category.name}
                       <CheckIcon
@@ -111,19 +145,19 @@ const FilterSideBar = () => {
       </div>
 
       <div className='py-4'>
-        {filteredCategories.map((category) => (
-          <div key={category.id} className='mb-4'>
-            <h3 className='text-xl font-semibold mb-2'>{category.name}</h3>
-            {category.options.map((subcategory) => (
-              <div key={subcategory.value} className='flex items-center mb-2'>
+        {CategoriesListExtract.map((category) => (
+          <div key={category.category} className='mb-4'>
+            <h3 className='text-xl font-semibold mb-2'>{category.category}</h3>
+            {category.subCategory.map((subcategory) => (
+              <div key={subcategory} className='flex items-center mb-2'>
                 <input
                   type="checkbox"
-                  value={subcategory.value}
-                  defaultChecked={subcategory.checked}
-                  id={subcategory.value}
+                  value={subcategory}
+                  // defaultChecked={subcategory.checked}
+                  id={subcategory}
                   className='mr-2'
                 />
-                <label htmlFor={subcategory.value}>{subcategory.label}</label>
+                <label htmlFor={subcategory}>{subcategory}</label>
               </div>
             ))}
           </div>

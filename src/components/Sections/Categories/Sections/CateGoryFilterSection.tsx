@@ -6,33 +6,49 @@ import CategorySearchInput from '../Components/CategorySearchInput';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/lib/store';
 import MobileFilterSideBar from '../Components/MobileFilterSideBar';
+import Image from 'next/image';
+import { ReloadIcon } from '@radix-ui/react-icons';
+import ShowResources from '../Components/ShowResources';
 // import { setSidebarVisibility } from '@/lib/Features/FilterSidebar/filtersidebarSlice';
 
 const CateGoryFilterSection: React.FC = () => {
+
+    const {ResourcesData, error, loading} = useSelector((state: RootState) => state.resourcesData);
 
     const handleSearch = (searchTerm: string) => {
         console.log(searchTerm);
     }
 
     const isSidebarvisible = useSelector((state: RootState) => state.filterSidebarShow.filtersidebarshow);
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     const handleResize = () => {
-    //         if(window.innerWidth < 1024){
-    //             dispatch(setSidebarVisibility(false));
-    //         }else{
-    //             dispatch(setSidebarVisibility(true));
-    //         }
-    //     }
 
-    //     window.addEventListener("resize", handleResize);
+    // Extracting categoriesList.data as CategoriesListExtract
+    const ResourcesExtract = ResourcesData?.data || [];
+    // console.log(ResourcesExtract);
 
-    //     handleResize();
 
-    //     return () => {
-    //         window.removeEventListener("resize", handleResize)
-    //     }
-    // })
+    if (loading) {
+        return (
+        <div className='flex flex-col justify-center items-center w-screen h-[90vh]'>
+            <Image src={"/assets/Images/LoadingGIF.gif"} width={200} height={50} alt='LearnShareMedia' />
+            <h4>Loading...</h4>
+        </div>
+        );
+    }
+
+    if (error) {
+        return (
+        <div className='flex flex-col justify-center items-center h-[90vh]'>
+            <button
+            className='bg-primary-500 px-3 py-3 text-white font-bold flex items-center gap-3'
+            onClick={() => window.location.reload()}
+            type='button'
+            >
+            Reload Page <ReloadIcon />
+            </button>
+            <h4>Error: {error}</h4>
+        </div>
+        );
+    }
 
     return (
         <>
@@ -53,12 +69,18 @@ const CateGoryFilterSection: React.FC = () => {
                         <div>
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {Array.from({ length: 50 }).map((_, index) => (
+                            {/* {Array.from({ length: 50 }).map((_, index) => (
                                 <div key={index} className="p-4 border rounded shadow">
                                     <h2 className="text-xl font-bold mb-2">Dummy Title {index + 1}</h2>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel urna nec nisi venenatis commodo. Nulla facilisi.</p>
                                 </div>
-                            ))}
+                            ))} */}
+                            {
+                                ResourcesExtract.map((resource) => (
+                                    <ShowResources title={resource.title} description={resource.description} file={resource.file} id={resource._id} key={resource._id}/>
+                                ))
+                            }
+
                         </div>
                     </div>
                 </div>
