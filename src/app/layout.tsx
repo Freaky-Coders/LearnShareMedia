@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { DynamicNavbar } from "@/components/DynamicNavbar";
-import StoreProvider from "./StoreProvider";
 import { Toaster } from '@/components/ui/toaster'
+import StoreProvider from "./StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
-
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,9 +24,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <StoreProvider>
           <DynamicNavbar/>
-          {children}
-          <Footer/>
-          <Toaster/>
+            {children}
+            <Footer/>
+            <Toaster/>
         </StoreProvider>
       </body>
     </html>

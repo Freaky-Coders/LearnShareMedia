@@ -32,8 +32,16 @@ import {
 import CategoriesData from './Category.json';
 import { FaFileUpload } from 'react-icons/fa'
 import axios from 'axios';
+import { AppDispatch, RootState } from '@/lib/store'
+import { useDispatch, useSelector } from 'react-redux'
+
+
 
 const ShareRecipe = () => {
+
+  const {categoriesList, error, loading} = useSelector((state: RootState) => state.categoriesList);
+  console.log(categoriesList)
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [category, setCategory] = useState('')
   const { toast } = useToast()

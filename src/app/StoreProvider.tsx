@@ -1,19 +1,17 @@
-'use client'
-import {Provider} from 'react-redux';
-import { useRef } from 'react';
-import { makeStore, AppStore } from '@/lib/store';
+'use client';
+import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { makeStore } from '@/lib/store';
+import { fetchCategories } from '@/lib/Features/CategoriesFetch/categoriesfetchSlice';
 
-export default function StoreProvider({
-    children
-}: {
-    children: React.ReactNode
-}){
-    const storeRef = useRef<AppStore>();
+const store = makeStore();
 
-    if(!storeRef.current){
-        storeRef.current = makeStore();
-    }
+const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  useEffect(() => {
+    store.dispatch(fetchCategories());
+  }, []);
 
-    return <Provider store={storeRef.current}>{children}</Provider>
+  return <Provider store={store}>{children}</Provider>;
+};
 
-}
+export default StoreProvider;
