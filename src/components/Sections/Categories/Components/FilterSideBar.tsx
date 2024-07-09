@@ -40,7 +40,6 @@ const FilterSideBar = () => {
 
   const { categoriesList, error, loading } = useSelector((state: RootState) => state.categoriesList);
   const { ResourcesData } = useSelector((state: RootState) => state.resourcesData);
-  console.log(ResourcesData)
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [open, setOpen] = useState(false);
@@ -54,10 +53,6 @@ const FilterSideBar = () => {
     setOpen(false);
   };
 
-  const filteredCategories = selectedCategory
-    ? CategoriesData.filter((category) => category.id === selectedCategory)
-    : CategoriesData;
-
 
     const handleSidebarToggle = () => {
       dispatch(toggleFilterSidebar());
@@ -65,8 +60,11 @@ const FilterSideBar = () => {
 
   // Extracting categoriesList.data as CategoriesListExtract
   const CategoriesListExtract = categoriesList?.data || [];
-  console.log(CategoriesListExtract);
 
+
+  const filteredCategories = selectedCategory
+    ? CategoriesListExtract.filter((category) => category.category === selectedCategory)
+    : CategoriesListExtract;
 
   if (loading) {
     return (
@@ -111,7 +109,7 @@ const FilterSideBar = () => {
               className="w-full justify-between bg-white"
             >
               {value
-                ? CategoriesData.find((framework) => framework.id === value)?.name
+                ? CategoriesListExtract.find((category) => category.category === value)?.category
                 : "Select Category..."}
               <CaretSortIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
@@ -122,17 +120,17 @@ const FilterSideBar = () => {
               <CommandList>
                 <CommandEmpty>No Category found.</CommandEmpty>
                 <CommandGroup>
-                  {CategoriesData.map((category) => (
+                  {CategoriesListExtract.map((category) => (
                     <CommandItem
-                      key={category.id}
-                      value={category.id}
-                      onSelect={() => handleCategoryChange(category.id)}
+                      key={category.category}
+                      value={category.category}
+                      onSelect={() => handleCategoryChange(category.category)}
                     >
-                      {category.name}
+                      {category.category}
                       <CheckIcon
                         className={cn(
                           "ml-auto h-4 w-4",
-                          value === category.id ? "opacity-100" : "opacity-0"
+                          value === category.category ? "opacity-100" : "opacity-0"
                         )}
                       />
                     </CommandItem>
@@ -145,7 +143,7 @@ const FilterSideBar = () => {
       </div>
 
       <div className='py-4'>
-        {CategoriesListExtract.map((category) => (
+        {filteredCategories.map((category) => (
           <div key={category.category} className='mb-4'>
             <h3 className='text-xl font-semibold mb-2'>{category.category}</h3>
             {category.subCategory.map((subcategory) => (

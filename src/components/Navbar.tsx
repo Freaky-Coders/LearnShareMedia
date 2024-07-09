@@ -58,10 +58,10 @@ const Navbar = () => {
         {
             label: "Category",
             dropdown: {
-                Business: "/business",
-                Health: "/health",
-                Money: "/money",
-                Water: "/water"
+                "IT / Software Development": "/category/it-software-development",
+                "Professional Development": "/category/professional-development",
+                "Health & Fitness": "/category/health-fitness",
+                "Government Jobs": "/category/government-jobs"
             }
         },
         {
@@ -126,9 +126,9 @@ const Navbar = () => {
                             ))}
                         </ul>
                     </div>
-                        <form action="">
+                        {/* <form action="">
                             <SearchInput />
-                        </form>
+                        </form> */}
                     </div>
                 </div>
             </nav>
